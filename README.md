@@ -10,39 +10,9 @@ A collection of useful extensions for the [pi](https://github.com/earendil-works
 
 ## 扩展列表 / Extensions
 
-### 1. `extensions/chinese-prompt.ts` — 中文提示词 / Chinese Prompt
+> **注意 / Note:** 中文提示词无需额外扩展，在 `~/.pi/agent/AGENTS.md` 中添加一条提示词（如 `使用中文回复`）即可做到。
 
-自动检测中文 AI 模型，将系统提示词切换为中文。
-
-Automatically detects Chinese-native AI models and switches the system prompt to Chinese.
-
-**检测的模型 / Detected Models:**
-
-`deepseek` · `qwen` · `minimax` · `kimi` · `mimo` · `glm`
-
-**工作方式 / How It Works:**
-
-- 在 `before_agent_start` 钩子中检查模型 ID、名称和提供商 ID（不区分大小写）。
-- 匹配成功后，将中文语言要求追加到系统提示词末尾。
-- 避免重复追加（已含中文指令时跳过）。
-
-- Checks model id, name, and provider id (case-insensitive) in the `before_agent_start` hook.
-- On match, appends a Chinese-language requirement to the end of the system prompt.
-- Avoids duplicate injection (skips if Chinese instruction is already present).
-
-**使用 / Usage:**
-
-```bash
-pi -e ./extensions/chinese-prompt.ts
-```
-
-或复制到 `~/.pi/agent/extensions/` 以自动加载。
-
-Or copy to `~/.pi/agent/extensions/` for automatic loading.
-
----
-
-### 2. `extensions/respect-gitignore.ts` — 尊重 .gitignore / Respect .gitignore
+### 1. `extensions/respect-gitignore.ts` — 尊重 .gitignore / Respect .gitignore
 
 覆盖内置的 `grep` 和 `find` 工具，使其遵循 `.gitignore` 规则。
 
@@ -81,14 +51,13 @@ Or copy to `~/.pi/agent/extensions/` for automatic loading.
 ### 单次使用 / One-off
 
 ```bash
-pi -e ./extensions/chinese-prompt.ts
 pi -e ./extensions/respect-gitignore.ts
 ```
 
 ### 同时加载多个扩展 / Load Multiple Extensions
 
 ```bash
-pi -e ./extensions/chinese-prompt.ts -e ./extensions/respect-gitignore.ts
+pi -e ./extensions/respect-gitignore.ts
 ```
 
 ### 持久安装 / Persistent
@@ -99,16 +68,13 @@ Copy or symlink the extension files into pi's autoload directory:
 
 ```bash
 mkdir -p ~/.pi/agent/extensions/
-cp extensions/chinese-prompt.ts ~/.pi/agent/extensions/
 cp extensions/respect-gitignore.ts ~/.pi/agent/extensions/
 ```
 
 ## 依赖 / Dependencies
 
-- `chinese-prompt.ts` — 仅依赖 `@earendil-works/pi-coding-agent` 类型。
 - `respect-gitignore.ts` — 需要系统中安装 `rg` (ripgrep) 和 `fd` (fd-find)。依赖 `@earendil-works/pi-coding-agent` 类型。
 
-- `chinese-prompt.ts` — Only depends on `@earendil-works/pi-coding-agent` types.
 - `respect-gitignore.ts` — Requires `rg` (ripgrep) and `fd` (fd-find) installed on the system. Depends on `@earendil-works/pi-coding-agent` types.
 
 ## 许可 / License
